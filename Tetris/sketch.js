@@ -10,9 +10,17 @@
 let x = 150;
 let y = 300;
 let drawButton;
+
 // load the images
 function preload() {
-  logo = loadImage("C:\Users\1302239\Documents\GitHub\cangtiandi.github.io\Pictures\Title");
+  logo = loadImage("assets/Pictures/Title/Tetris.png");
+  blueL = loadImage("assest/Pictures/Blocks/Blue Ricky.png");
+  redZ = loadImage("assest/Pictures/Blocks/Cleveland Z.png");
+  Lblock = loadImage("assest/Pictures/Blocks/Hero.png");
+  orangeL = loadImage("assest/Pictures/Blocks/Orange Ricky.png");
+  greenZ = loadImage("assest/Pictures/Blocks/Rhode Island Z.png");
+  block = loadImage("assest/Pictures/Blocks/Smashboy.png");
+  tBlock = loadImage("assest/Pictures/Blocks/Teewee.png");
 }
 
 function setup() {
@@ -30,11 +38,15 @@ function setup() {
 }
 
 function draw() {
-  
+  image(random());
 }
   
 
 function enterTetris(){
   background(0);
   drawButton.remove();
+}
+
+function game(){
+
 }
