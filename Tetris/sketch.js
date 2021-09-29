@@ -40,6 +40,7 @@ function setup() {
 }
 
 function draw() {
+
 }
   
 
@@ -49,9 +50,13 @@ function enterTetris(){
 }
 
 function mouseClicked(){
-
+ if (drawButton){
+  image(block, width/2,height/2, 100,100);
+ }
 }
 
-function keyTyped(){
-  if (key === "a");
+function keyIsPressed(){
+  if (key === "a"){
+
+  }
 }
