@@ -2,7 +2,7 @@
 // Project Title
 // 
 // Your Name
-// Jack Chen
+//
 // Date
 // 9/28/21
 // Extra for Experts:
@@ -11,6 +11,9 @@
 //global varibles 
 let x = 150;
 let y = 300;
+let blueL, redZ, lBlock, orangeL, greenZ, block, tBlock;
+let tetrisBlocks = [blueL, redZ, lBlock, orangeL, greenZ, block, tBlock]
+let randomTetrisBlocks = tetrisBlocks[Math.floor(Math.random() * tetrisBlocks.length)]
 
 // load the images
 function preload() {
@@ -44,20 +47,15 @@ function setup() {
 }
 
 function draw() {
+ rotation()
 }
   
-
 function enterTetris(){
   background(0);
   drawButton.remove();
+  image(randomTetrisBlocks, width/2, 30, 100, 60);
 }
-function mousePressed() {
-  if (drawButton){
-    image(block, width/2, 30, 100, 60);
-  }
-}
-function keyPressed(){
-  if (key === "a"){
-    rotate(90);
-  }
+
+function rotation(){
+
 }
