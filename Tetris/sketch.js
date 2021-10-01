@@ -19,7 +19,7 @@ function preload() {
   // redZ = loadImage("assets/Pictures/Blocks/Cleveland Z.png");
   // lBlock = loadImage("assets/Pictures/Blocks/Hero.png");
   // orangeL = loadImage("assets/Pictures/Blocks/Orange Ricky.png");
-  // greenZ = loadImage("assets/Pictures/Blocks/Rhode Island Z.png");
+  greenZ = loadImage("assets/Pictures/Blocks/Rhode Island Z.png");
   block = loadImage("assets/Pictures/Blocks/Smashboy.png");
   // tBlock = loadImage("assets/Pictures/Blocks/Teewee.png");
 }
@@ -40,7 +40,6 @@ function setup() {
 }
 
 function draw() {
-
 }
   
 
@@ -50,13 +49,13 @@ function enterTetris(){
 }
 
 function mouseClicked(){
- if (drawButton){
-  image(block, width/2,height/2, 100,100);
- }
+  if (drawButton){
+    image(greenZ, width/2,height/2, 100,100);
+  }
 }
 
-function keyIsPressed(){
+function keyPressed(){
   if (key === "a"){
-
+    rotate(90);
   }
 }
