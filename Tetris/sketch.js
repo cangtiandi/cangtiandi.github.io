@@ -15,14 +15,17 @@ let y = 300;
 // load the images
 function preload() {
   logo = loadImage("assets/Pictures/Title/Tetris.png");
-  // blueL = loadImage("assets/Pictures/Blocks/Blue Ricky.png");
-  // redZ = loadImage("assets/Pictures/Blocks/Cleveland Z.png");
-  // lBlock = loadImage("assets/Pictures/Blocks/Hero.png");
-  // orangeL = loadImage("assets/Pictures/Blocks/Orange Ricky.png");
+  blueL = loadImage("assets/Pictures/Blocks/Blue Ricky.png");
+  redZ = loadImage("assets/Pictures/Blocks/Cleveland Z.png");
+  lBlock = loadImage("assets/Pictures/Blocks/Hero.png");
+  orangeL = loadImage("assets/Pictures/Blocks/Orange Ricky.png");
   greenZ = loadImage("assets/Pictures/Blocks/Rhode Island Z.png");
   block = loadImage("assets/Pictures/Blocks/Smashboy.png");
-  // tBlock = loadImage("assets/Pictures/Blocks/Teewee.png");
+  tBlock = loadImage("assets/Pictures/Blocks/Teewee.png");
+
 }
+
+
 function setup() {
   background(255);
   createCanvas(400, 400);
@@ -33,6 +36,7 @@ function setup() {
   drawButton.mouseClicked(enterTetris);
   drawButton.size(width/4,height/8);
   
+  // adjusting image and angle
   angleMode(DEGREES);
   imageMode(CENTER);
 
@@ -47,13 +51,11 @@ function enterTetris(){
   background(0);
   drawButton.remove();
 }
-
-function mouseClicked(){
+function mousePressed() {
   if (drawButton){
-    image(greenZ, width/2,height/2, 100,100);
+    image(block, width/2, 30, 100, 60);
   }
 }
-
 function keyPressed(){
   if (key === "a"){
     rotate(90);
