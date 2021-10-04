@@ -73,10 +73,11 @@ function tetrisMode() {
 // rotation
 function keyTyped() {
   if (key === "d") {
-    if (theta === 360){
-      theta = 0;
-    }
     theta += 90;
+    audio.play();
+  }
+  if (key === "a") {
+    theta -= 270;
     audio.play();
   }
 }
