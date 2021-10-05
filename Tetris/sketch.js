@@ -7,13 +7,13 @@
 // 9/28/21
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-// Added audio everytime you rotate the block
+// Played a sound everyting you rotate the block
 
 //global varibles 
-let x = 150;
+let a = 100;
 let y = 300;
 let theta = 0;
-let button = false;
+let tetris = false;
 let audio = new Audio("assets/Audio/Block Rotate.mp3");
 
 // load the images
@@ -31,15 +31,15 @@ function preload() {
 
 function setup() {
   background(255);
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
   
   // Start menu
   drawButton = createButton("start");
-  drawButton.position(x,y);
+  drawButton.position(width/2,height/2);
   drawButton.mouseClicked(enterTetris);
-  drawButton.size(width/4,height/8);
+  drawButton.size(a,a);
 
-  image(logo, x, 30, 100, 60);
+  image(logo, width/2, -height+a, a, 60);
   
   // adjusting image and angle
   angleMode(DEGREES);
@@ -47,16 +47,15 @@ function setup() {
 
 }
 
-
-
-function draw() {
-  if (button){
-    tetrisMode();
-  }
+// activates tetrisMode()
+function enterTetris(){
+  tetris = !tetris;
 }
 
-function enterTetris(){
-  button = !button;
+function draw() {
+  if (tetris){
+    tetrisMode();
+  }
 }
 
 function tetrisMode() {
@@ -76,7 +75,7 @@ function keyTyped() {
     theta += 90;
     audio.play();
   }
-  if (key === "a") {
+  if (key === "a"){
     theta -= 270;
     audio.play();
   }
