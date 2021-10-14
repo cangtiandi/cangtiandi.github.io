@@ -1,12 +1,12 @@
 
 // Grid Demo
 
-let gridSize = 10;
+let gridSize = 50;
 let grid;
 let clickaudio;
 
 function preload(){
-  clickaudio = loadSound("assets/zombie-1.wav");
+  clickaudio = loadSound("assets/Minecraft Cave Sounds Sound Effect Pack/cave1.mp3");
 }
 
 function setup() {
@@ -28,23 +28,46 @@ function mousePressed(){
 
   clickaudio.play();
 
-  if(grid[cellY][cellX] === 1){
-    grid[cellY][cellX] = 0;
-  }
-  else if(grid[cellY][cellX] === 0){
-    grid[cellY][cellX] = 1;
-  }
+  swap(cellX ,cellY);
+  swap(cellX+1, cellY);
+  swap(cellX-1, cellY);
+  swap(cellX, cellY+1);
+  swap(cellX, cellY-1);
 }
 
-function createEmpty2DArray(rows,cols){
-  let grid = [];
-  for (let y=0; y<rows; y++){
-    grid.push([]);
-    for (let x=0; x<cols; x++){
-      grid[y].push(0);
+function swap(x,y){
+  if (x >= 0 && x < gridSize && y >= 0 && y < gridSize){
+    if(grid[y][x] === 1){
+      grid[y][x] = 0;
+    }
+    else if(grid[y][x] === 0){
+      grid[y][x] = 1;
     }
   }
-  return grid;
+
+ 
+}
+
+function createEmpty2DArray(rows,cols, numToFill = 0){
+  let grid = [];
+  if (numToFill === 0){
+    for (let y=0; y<rows; y++){
+      grid.push([]);
+      for (let x=0; x<cols; x++){
+        grid[y].push(0);
+      }
+    }
+    return grid;
+  }
+  else if (numToFill === 1){
+    for (let y=0; y<rows; y++){
+      grid.push([]);
+      for (let x=0; x<cols; x++){
+        grid[y].push(1);
+      }
+    }
+    return grid;
+  }
 }
 
 function displayGrid(){
@@ -80,10 +103,15 @@ function createRandom2DArray(rows,cols){
   return grid;
 }
 
+
 function keyPressed(){
   if (key === "r"){
-    setup();
+    grid = createRandom2DArray(gridSize,gridSize);
   }
   if (key === "e"){
+    grid = createEmpty2DArray(gridSize,gridSize);
+  }
+  if (key === "b"){
+    grid = createEmpty2DArray(gridSize,gridSize, 1);
   }
 }
