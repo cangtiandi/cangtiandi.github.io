@@ -19,13 +19,6 @@ let audio = new Audio("assets/Audio/Block Rotate.mp3");
 // load the images
 function preload() {
   logo = loadImage("assets/Pictures/Title/Tetris.png");
-  // blueL = loadImage("assets/Pictures/Blocks/Blue Ricky.png");
-  // redZ = loadImage("assets/Pictures/Blocks/Cleveland Z.png");
-  // lBlock = loadImage("assets/Pictures/Blocks/Hero.png");
-  // orangeL = loadImage("assets/Pictures/Blocks/Orange Ricky.png");
-  // greenZ = loadImage("assets/Pictures/Blocks/Rhode Island Z.png");
-  // block = loadImage("assets/Pictures/Blocks/Smashboy.png");
-  // tBlock = loadImage("assets/Pictures/Blocks/Teewee.png");
 }
 
 
