@@ -32,7 +32,7 @@ function setup() {
   drawButton.mouseClicked(enterTetris);
   drawButton.size(a,a);
 
-  image(logo, width/2, -height+a, a, 60);
+  image(logo, width/2, height-a, a, 60);
   
   // adjusting image and angle
   angleMode(DEGREES);
