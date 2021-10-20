@@ -60,7 +60,6 @@ function draw() {
 }
 
 function tetrisMode() {
-  background(0);
   drawButton.remove();
   displayGrid();
   backgroundTetris();
@@ -108,11 +107,11 @@ function createEmpty2DArray(rows,cols){
 }
 
 function backgroundTetris(){
-  let cellX = Math.floor(mouseX/cellWidth);
-  let cellY = Math.floor(mouseY/cellHeight);
   for (let y=0; y<gridSize; y++){
     for (let  x=0; x< 12; x++){
-      grid[cellY][cellX] === 1;
+      if(grid[y][x] === 0){
+        grid[y][x] === 1;
+      }
     }
   }
 }
