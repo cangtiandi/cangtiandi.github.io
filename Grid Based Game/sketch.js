@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 // Project Title
 // Grid Based Game 
 // Your Name
@@ -14,8 +15,10 @@ let a = 100;
 let y = 300;
 let theta = 0;
 let tetris = false;
+
 let grid;
-let gridSize = 10;
+let gridSize = 30;
+let cellHeight, cellWidth;
 
 // load the images
 function preload() {
@@ -31,15 +34,18 @@ function setup() {
   drawButton = createButton("start");
   drawButton.position(width/2,height/2);
   drawButton.mouseClicked(enterTetris);
-  drawButton.size(a,a);
+  drawButton.size(100,100);
 
-  image(logo, width/2, height-a, a, 60);
+  image(logo, width/2, -height, a, 60);
   
   // adjusting image and angle
   angleMode(DEGREES);
   imageMode(CENTER);
 
+
   grid = createEmpty2DArray(gridSize,gridSize);
+  cellHeight = height/gridSize;
+  cellWidth = width/gridSize;
 }
 
 // activates tetrisMode()
@@ -56,6 +62,8 @@ function draw() {
 function tetrisMode() {
   background(0);
   drawButton.remove();
+  displayGrid();
+  backgroundTetris();
 }
 
 // rotation
@@ -97,4 +105,14 @@ function createEmpty2DArray(rows,cols){
     }
   }
   return grid;
+}
+
+function backgroundTetris(){
+  let cellX = Math.floor(mouseX/cellWidth);
+  let cellY = Math.floor(mouseY/cellHeight);
+  for (let y=0; y<gridSize; y++){
+    for (let  x=0; x< 12; x++){
+      grid[cellY][cellX] === 1;
+    }
+  }
 }
