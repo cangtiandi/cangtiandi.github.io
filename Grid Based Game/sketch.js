@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-
 // Project Title
 // Grid Based Game 
 // Your Name
@@ -46,11 +45,8 @@ function setup() {
   grid = createEmpty2DArray(gridSize,gridSize);
   cellHeight = height/gridSize;
   cellWidth = width/gridSize;
-}
 
-// activates tetrisMode()
-function enterTetris(){
-  tetris = !tetris;
+  tetrisBackground();
 }
 
 function draw() {
@@ -59,10 +55,32 @@ function draw() {
   }
 }
 
+// activates tetrisMode()
+function enterTetris(){
+  tetris = !tetris;
+}
+
 function tetrisMode() {
   drawButton.remove();
   displayGrid();
-  backgroundTetris();
+}
+
+function tetrisBackground(){
+  for (let y=0; y<gridSize; y++){
+    for (let  x=0; x< 12; x++){
+      if(grid[y][x] === 0){
+        grid[y][x] = 1;
+      }
+    }
+  }
+
+  for (let y=0; y<gridSize; y++){
+    for (let  x=20; x<gridSize; x++){
+      if(grid[y][x] === 0){
+        grid[y][x] = 1;
+      }
+    }
+  }
 }
 
 // rotation
@@ -106,12 +124,11 @@ function createEmpty2DArray(rows,cols){
   return grid;
 }
 
-function backgroundTetris(){
-  for (let y=0; y<gridSize; y++){
-    for (let  x=0; x< 12; x++){
-      if(grid[y][x] === 0){
-        grid[y][x] === 1;
-      }
+function createBlock(){
+  for (let y=0; y<2; y++){
+    for (let x=0; x<2; x++){
+      if (grid[y][x])
     }
   }
+  rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
 }
