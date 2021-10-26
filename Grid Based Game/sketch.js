@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 // Project Title
 // Grid Based Game 
 // Your Name
@@ -10,10 +9,10 @@
 // 
 
 //global varibles 
-let a = 100;
-let y = 300;
 let theta = 0;
 let tetris = false;
+let logo;
+let drawButton;
 
 let grid;
 let gridWidth = 30;
@@ -21,6 +20,10 @@ let gridHeight = 30;
 let cellHeight, cellWidth;
 
 let curTetromino = [];
+let tetrominos = [];
+let tetrominoColour = ["red","blue","green","yellow","purple","orange",];
+let curTetrominoColour;
+
 let startX = 23;
 let startY = 0;
 
@@ -44,13 +47,10 @@ function setup() {
   drawButton.mouseClicked(enterTetris);
   drawButton.size(100,100);
 
-  image(logo, width/2-50, (height-a*8)-50, 200, 120);
+  image(logo, width/2-50, height-600, 200, 120);
 
   // grid 
   grid = createEmpty2DArray(gridHeight,gridWidth);
-  cellHeight = height/gridHeight;
-  cellWidth = width/gridWidth;
-
   tetrisBackground();
 }
 
@@ -68,13 +68,14 @@ function enterTetris(){
 function tetrisMode() {
   drawButton.remove();
   displayGrid();
+  tetrominoBlocks();
 }
 
 function tetrisBackground(){
   for (let y=0; y<gridHeight; y++){
     for (let  x=0; x< 12; x++){
       if(grid[y][x] === 0){
-        grid[y][x] = 1;
+        grid[y][x] = 2;
       }
     }
   }
@@ -82,9 +83,42 @@ function tetrisBackground(){
   for (let y=0; y<gridHeight; y++){
     for (let  x=19; x<gridWidth; x++){
       if(grid[y][x] === 0){
-        grid[y][x] = 1;
+        grid[y][x] = 2;
       }
     }
+  }
+}
+
+
+function tetrominoBlocks() {
+  // Push T 
+  tetrominos.push([[1,0], [0,1], [1,1], [2,1]]);
+  // Push I
+  tetrominos.push([[0,0], [1,0], [2,0], [3,0]]);
+  // Push J
+  tetrominos.push([[0,0], [0,1], [1,1], [2,1]]);
+  // Push Square
+  tetrominos.push([[0,0], [1,0], [0,1], [1,1]]);
+  // Push L
+  tetrominos.push([[2,0], [0,1], [1,1], [2,1]]);
+  // Push S
+  tetrominos.push([[1,0], [2,0], [0,1], [1,1]]);
+  // Push Z
+  tetrominos.push([[0,0], [1,0], [1,1], [2,1]]);
+}
+
+function createTetromino() {
+  let randomTetromino = Math.floor(Math.random() * tetrominos.length);
+  // Create tetris blocks
+  curTetromino = tetrominos[randomTetromino];
+  // Get the colour of it
+  curTetrominoColour = tetrominoColour[randomTetromino];
+}
+
+function drawTetromino() {
+  for (let i=0; i<curTetromino.length; i++){
+    let x = startX;
+    let y = startY;
   }
 }
 
@@ -100,7 +134,10 @@ function displayGrid(){
       if (grid[y][x] === 1){
         fill("black");
       }
-      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight)
+      if (grid[y][x] === 2){
+        fill(12);
+      } 
+      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
   }
 }
@@ -118,6 +155,7 @@ function createEmpty2DArray(rows,cols){
 
 // rotation
 function keyTyped() {
+  // eslint-disable-next-line no-undef
   let switchSound = new Audio("assets/Audio/Block Rotate.mp3");
   if (key === "d") {
     theta += 90;
@@ -127,21 +165,4 @@ function keyTyped() {
     theta -= 270;
     switchSound.play();
   }
-}
-
-function CreateTetrominos(){
-  // Push T 
-  tetrominos.push([[1,0], [0,1], [1,1], [2,1]]);
-  // Push I
-  tetrominos.push([[0,0], [1,0], [2,0], [3,0]]);
-  // Push J
-  tetrominos.push([[0,0], [0,1], [1,1], [2,1]]);
-  // Push Square
-  tetrominos.push([[0,0], [1,0], [0,1], [1,1]]);
-  // Push L
-  tetrominos.push([[2,0], [0,1], [1,1], [2,1]]);
-  // Push S
-  tetrominos.push([[1,0], [2,0], [0,1], [1,1]]);
-  // Push Z
-  tetrominos.push([[0,0], [1,0], [1,1], [2,1]]);
 }
