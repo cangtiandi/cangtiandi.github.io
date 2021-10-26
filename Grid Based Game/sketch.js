@@ -16,16 +16,17 @@ let theta = 0;
 let tetris = false;
 
 let grid;
-let gridSize = 30;
+let gridWidth = 30;
+let gridHeight = 30;
 let cellHeight, cellWidth;
+
+let curTetromino = [];
+let startX = 23;
+let startY = 0;
 
 // load the images
 function preload() {
   logo = loadImage("assets/Pictures/Title/Tetris.png");
-
-  block = loadImage("assets/Pictures/Tetris Blocks/TetrisBlock.png");
-  black = loadImage("assets/Pictures/Tetris Blocks/Black.png");
-  white = loadImage("assets/Pictures/Tetris Blocks/White.png");
 }
 
 
@@ -39,19 +40,18 @@ function setup() {
 
   // Start menu
   drawButton = createButton("start");
-  drawButton.position(width/2-50,height/2);
+  drawButton.position(width/2-100,height/2);
   drawButton.mouseClicked(enterTetris);
   drawButton.size(100,100);
 
-  image(logo, width/2-50, -height+a*2, a, 60);
+  image(logo, width/2-50, (height-a*8)-50, 200, 120);
 
   // grid 
-  grid = createEmpty2DArray(gridSize,gridSize);
-  cellHeight = height/gridSize;
-  cellWidth = width/gridSize;
+  grid = createEmpty2DArray(gridHeight,gridWidth);
+  cellHeight = height/gridHeight;
+  cellWidth = width/gridWidth;
 
   tetrisBackground();
-
 }
 
 function draw() {
@@ -71,7 +71,7 @@ function tetrisMode() {
 }
 
 function tetrisBackground(){
-  for (let y=0; y<gridSize; y++){
+  for (let y=0; y<gridHeight; y++){
     for (let  x=0; x< 12; x++){
       if(grid[y][x] === 0){
         grid[y][x] = 1;
@@ -79,8 +79,8 @@ function tetrisBackground(){
     }
   }
 
-  for (let y=0; y<gridSize; y++){
-    for (let  x=20; x<gridSize; x++){
+  for (let y=0; y<gridHeight; y++){
+    for (let  x=19; x<gridWidth; x++){
       if(grid[y][x] === 0){
         grid[y][x] = 1;
       }
@@ -89,20 +89,18 @@ function tetrisBackground(){
 }
 
 function displayGrid(){
-  let cellWidth = width/gridSize;
-  let cellHeight = height/gridSize;
+  let cellWidth = width/gridWidth;
+  let cellHeight = height/gridHeight;
   
-  for (let y=0; y<gridSize; y++){
-    for (let x=0; x<gridSize; x++){
+  for (let y=0; y<gridHeight; y++){
+    for (let x=0; x<gridWidth; x++){
       if (grid[y][x] === 0){
-        image(white, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        fill("white");
       }
       if (grid[y][x] === 1){
-        image(black, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        fill("black");
       }
-      if (grid[x][y] === 2){
-        image(block, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      }
+      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight)
     }
   }
 }
@@ -131,3 +129,19 @@ function keyTyped() {
   }
 }
 
+function CreateTetrominos(){
+  // Push T 
+  tetrominos.push([[1,0], [0,1], [1,1], [2,1]]);
+  // Push I
+  tetrominos.push([[0,0], [1,0], [2,0], [3,0]]);
+  // Push J
+  tetrominos.push([[0,0], [0,1], [1,1], [2,1]]);
+  // Push Square
+  tetrominos.push([[0,0], [1,0], [0,1], [1,1]]);
+  // Push L
+  tetrominos.push([[2,0], [0,1], [1,1], [2,1]]);
+  // Push S
+  tetrominos.push([[1,0], [2,0], [0,1], [1,1]]);
+  // Push Z
+  tetrominos.push([[0,0], [1,0], [1,1], [2,1]]);
+}
