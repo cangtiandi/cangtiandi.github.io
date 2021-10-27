@@ -24,8 +24,12 @@ let tetrominos = [];
 let tetrominoColour = ["red","blue","green","yellow","purple","orange",];
 let curTetrominoColour;
 
-let startX = 23;
-let startY = 0;
+class Corrdinates {
+  constructor(x,y) {
+    this.x = x;
+    this.y = y;
+  }
+}
 
 // load the images
 function preload() {
@@ -117,8 +121,7 @@ function createTetromino() {
 
 function drawTetromino() {
   for (let i=0; i<curTetromino.length; i++){
-    let x = startX;
-    let y = startY;
+    
   }
 }
 
@@ -135,8 +138,9 @@ function displayGrid(){
         fill("black");
       }
       if (grid[y][x] === 2){
-        fill(12);
+        fill(245,245,220);
       } 
+      noStroke();
       rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
     }
   }
