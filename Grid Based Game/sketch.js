@@ -24,6 +24,9 @@ let tetrominos = [];
 let tetrominoColour = ["red","blue","green","yellow","purple","orange",];
 let curTetrominoColour;
 
+let startX = 23;
+let startY = 0;
+
 class Corrdinates {
   constructor(x,y) {
     this.x = x;
@@ -56,6 +59,7 @@ function setup() {
   // grid 
   grid = createEmpty2DArray(gridHeight,gridWidth);
   tetrisBackground();
+  drawTetromino();
 }
 
 function draw() {
@@ -121,7 +125,10 @@ function createTetromino() {
 
 function drawTetromino() {
   for (let i=0; i<curTetromino.length; i++){
-    
+    let x = curTetromino[i][0] + startX;
+    let y = curTetromino[i][1] + startY;
+
+    fill(curTetromino);
   }
 }
 
