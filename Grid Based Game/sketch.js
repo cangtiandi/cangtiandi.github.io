@@ -59,7 +59,6 @@ function setup() {
   // grid 
   grid = createEmpty2DArray(gridHeight,gridWidth);
   tetrisBackground();
-  drawTetromino();
 }
 
 function draw() {
@@ -124,12 +123,9 @@ function createTetromino() {
 }
 
 function drawTetromino() {
-  for (let i=0; i<curTetromino.length; i++){
-    let x = curTetromino[i][0] + startX;
-    let y = curTetromino[i][1] + startY;
-
-    fill(curTetromino);
-  }
+  let x = startX;
+  let y = startY;
+  
 }
 
 function displayGrid(){
@@ -176,4 +172,16 @@ function keyTyped() {
     theta -= 270;
     switchSound.play();
   }
+}
+
+class Piece {
+  constructor(blocks,x,y){
+    this.blocks = blocks;
+    this.x = x;
+    this.y = y;
+
+  }
+
+
+  blocks
 }
