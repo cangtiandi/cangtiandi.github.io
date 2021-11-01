@@ -73,11 +73,31 @@ class Ball {
       this.dy *= -1;
     }
   }
+
+  isPointInBall(x,y){
+    if(dist(x, y, this.x, this.y) < this.radius){
+      //insdie ball
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 }
 
 function mousePressed() {
-  for (let i=0; i<10; i++){
-    let theBall = new Ball(mouseX, mouseY,lmao);
-    ballArray.push(theBall);
+  for (let i=ballArray.length-1; i>0; i--){
+    if (ballArray[i].isPointInBall(mouseX, mouseY)){
+      ballArray.splice(i, 1);
+      break;
+    }
+  }
+}
+function keyPressed() {
+  if (key === " "){
+    for (let i=0; i<10; i++){
+      let theBall = new Ball(mouseX, mouseY,lmao);
+      ballArray.push(theBall);
+    }
   }
 }

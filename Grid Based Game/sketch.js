@@ -4,37 +4,11 @@ let gridSize = 30;
 let grid;
 
 let geese;
+let hasGeese = false;
 
 let level = 0; 
 let score = 0;
 
-// class Bird {
-//   constructor(x,cellWidth, cellHeight){
-//     this.x = x;
-//     this.y = 30;
-//     this.dx = random(-5, 5);
-//     this.dy = random(-5, 5);
-
-//   }
-
-//   display() {
-//     imageMode(CENTER);
-//     image(geese, this.x*cellWidth, this.y*cellHeight, cellWidth, cellHeight);
-//   }
-
-//   move() {
-//     let choice = random(75);
-//     if (choice < 25){ //up
-//       this.y -= this.speed;
-//     }
-//     else if (choice < 50){ //left
-//       this.x -= this.speed;
-//     }
-//     else if (choice < 75){ // right
-//       this.x += this.speed;
-//     }
-//   }
-// }
 
 function preload() {
   geese = loadImage("assets/Canadian Geese.png");
@@ -45,12 +19,13 @@ function setup() {
 
   grid = createEmpty2DArray(gridSize,gridSize);
   theBackground();
+
+  spawnGeese();
 }
 
 function draw() {
   background(220);
   displayGrid();
-  geeseMovement();
 }
 
 function createEmpty2DArray(rows,cols){
@@ -67,19 +42,24 @@ function createEmpty2DArray(rows,cols){
 function displayGrid(){
   let cellWidth = width/gridSize;
   let cellHeight = height/gridSize;
+  noStroke();
   for (let y=0; y<gridSize; y++){
     for (let x=0; x<gridSize; x++){
       if (grid[y][x] === 0){
         fill("white");
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 1){
         fill("black");
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 2){
         fill("#ADD8E6"); //light blue
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 3){
         fill("#008000");//green
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 4){
         fill("#6B4423"); // brown
@@ -117,8 +97,22 @@ function theBackground() {
   }
 }
 
-function geeseMovement() {
-  if (grid[20][20] === 2){
-    grid[20][20] = 5;
+function spawnGeese() {
+  for (let y=22; y<23; y++){
+    for (let x=0; x<gridSize; x++){
+      if(hasGeese === false){
+        if (grid[y][x] === 2 && random(100) < 10){
+          grid[y][x] = 5;
+          hasGeese = !hasGeese;
+        }
+      }
+    }
   }
+}
+
+function geeseMovement() {
+  spawnGeese();
+  let newboard = background();
+
+  grid = newboard;
 }
