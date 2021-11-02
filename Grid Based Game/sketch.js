@@ -3,11 +3,14 @@
 let gridSize = 30;
 let grid;
 
+
 let geese;
 let hasGeese = false;
 
+
 let level = 0; 
 let score = 0;
+let lives = 3;
 
 
 function preload() {
@@ -20,7 +23,7 @@ function setup() {
   grid = createEmpty2DArray(gridSize,gridSize);
   theBackground();
 
-  spawnGeese();
+  geeseMovement();
 }
 
 function draw() {
@@ -42,6 +45,7 @@ function createEmpty2DArray(rows,cols){
 function displayGrid(){
   let cellWidth = width/gridSize;
   let cellHeight = height/gridSize;
+
   noStroke();
   for (let y=0; y<gridSize; y++){
     for (let x=0; x<gridSize; x++){
@@ -111,8 +115,18 @@ function spawnGeese() {
 }
 
 function geeseMovement() {
+  let choice = random(100);
   spawnGeese();
-  let newboard = background();
 
-  grid = newboard;
+  for (let y=0; y<gridSize; y++){
+    for (let x=0; x<gridSize; x++){
+      if (grid[y][x] === 5){
+        if (choice > 33){
+          grid[y][x] = 2;
+          grid[y-1][x] = 5;
+        }
+        else if (choice)
+      }
+    }
+  }
 }
