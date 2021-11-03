@@ -2,7 +2,7 @@
 // Grid Demo
 let gridSize = 30;
 let grid;
-
+let cellWidth, cellHeight;
 
 let geese;
 let hasGeese = false;
@@ -11,6 +11,7 @@ let hasGeese = false;
 let level = 0; 
 let score = 0;
 let lives = 3;
+let speed = 30;
 
 
 function preload() {
@@ -19,16 +20,16 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
   grid = createEmpty2DArray(gridSize,gridSize);
   theBackground();
-
-  geeseMovement();
 }
 
 function draw() {
   background(220);
   displayGrid();
+  geeseMovement();
+
+  gameover();
 }
 
 function createEmpty2DArray(rows,cols){
@@ -77,7 +78,7 @@ function displayGrid(){
 }
 
 function theBackground() {
-  for (let y=2; y< 23; y++){
+  for (let y=0; y< 23; y++){
     for (let x=0; x<gridSize; x++){
       if (grid[y][x] === 0){
         grid[y][x] = 2;
@@ -115,17 +116,51 @@ function spawnGeese() {
 }
 
 function geeseMovement() {
-  let choice = random(100);
   spawnGeese();
-
+  let choice = random(100);
   for (let y=0; y<gridSize; y++){
     for (let x=0; x<gridSize; x++){
-      if (grid[y][x] === 5){
-        if (choice > 33){
+      if (grid[y][x] === 5 && frameCount % speed === 0 ){
+        if (choice < 33){
           grid[y][x] = 2;
           grid[y-1][x] = 5;
         }
-        else if (choice)
+        else if (choice < 66){
+          grid[y][x] = 2;
+          grid[y-1][x+1] = 5;
+        }
+        else {
+          grid[y][x] = 2;
+          grid[y-1][x-1] = 5;
+        }
+      }
+      if (grid[y][x] === 5 && y === 0){
+        grid[y][x] = 2;
+        lives -= 1;
+        hasGeese = !hasGeese;
+      }
+    }
+  }
+}
+
+function mousePressed() {
+  let cellX = Math.floor(mouseX/cellWidth);
+  let cellY = Math.floor(mouseY/cellHeight);
+
+  if (grid[cellY][cellX] === 5){
+    grid[cellY][cellX] = 2;
+    level += 1;
+    score += 100;
+  }
+}
+
+function gameover(){
+  if (lives === 0) {
+    for (let y=0; y<gridSize; y++){
+      for (let x=0; y<gridSize; x++){
+        if (grid[y][x] !== 1){
+          grid[y][x] === 1;
+        }
       }
     }
   }
