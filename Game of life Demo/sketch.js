@@ -1,7 +1,7 @@
 // Game of Life
 
 let grid;
-let gridSize = 60;
+let gridSize = 30;
 let cellWidth, cellHeight;
 let autoplay = false;
 let gun;
@@ -100,10 +100,10 @@ function mousePressed() {
 function displayGrid() {
   for (let y=0; y<gridSize; y++) {
     for (let x=0; x<gridSize; x++) {
-      if (grid[y][x] === 0) {
+      if (grid[y][x] === 1) {
         fill("white");
       }
-      if (grid[y][x] === 1) {
+      if (grid[y][x] === 0) {
         fill("black");
       }
       rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);

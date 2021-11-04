@@ -1,14 +1,10 @@
-
-// Grid Demo
-let gridSize = 30;
 let grid;
+let gridSize = 30;
 let cellWidth, cellHeight;
 
 let geese;
 let hasGeese = false;
-
-
-let level = 0; 
+let levels = 0; 
 let score = 0;
 let lives = 3;
 let speed = 30;
@@ -20,18 +16,19 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  cellWidth = width/gridSize;
+  cellHeight = height/gridSize;
   grid = createEmpty2DArray(gridSize,gridSize);
   theBackground();
+  gameRules();
 }
 
 function draw() {
   background(220);
   displayGrid();
   geeseMovement();
-
-  gameover();
 }
-
+  
 function createEmpty2DArray(rows,cols){
   let grid = [];
   for (let y=0; y<rows; y++){
@@ -44,9 +41,6 @@ function createEmpty2DArray(rows,cols){
 }
 
 function displayGrid(){
-  let cellWidth = width/gridSize;
-  let cellHeight = height/gridSize;
-
   noStroke();
   for (let y=0; y<gridSize; y++){
     for (let x=0; x<gridSize; x++){
@@ -117,24 +111,29 @@ function spawnGeese() {
 
 function geeseMovement() {
   spawnGeese();
+  
   let choice = random(100);
   for (let y=0; y<gridSize; y++){
     for (let x=0; x<gridSize; x++){
       if (grid[y][x] === 5 && frameCount % speed === 0 ){
-        if (choice < 33){
+        if (choice < 33){ // moves up
           grid[y][x] = 2;
           grid[y-1][x] = 5;
         }
         else if (choice < 66){
-          grid[y][x] = 2;
-          grid[y-1][x+1] = 5;
+          if (x !== gridSize.length - 1){ // moves up and right
+            grid[y][x] = 2;
+            grid[y-1][x+1] = 5;
+          }
         }
         else {
-          grid[y][x] = 2;
-          grid[y-1][x-1] = 5;
+          if (x !== 0){ // moves up and left
+            grid[y][x] = 2;
+            grid[y-1][x-1] = 5;
+          }
         }
       }
-      if (grid[y][x] === 5 && y === 0){
+      if (grid[y][x] === 5 && y === 0){ // loses live when geese reach to the top
         grid[y][x] = 2;
         lives -= 1;
         hasGeese = !hasGeese;
@@ -149,19 +148,14 @@ function mousePressed() {
 
   if (grid[cellY][cellX] === 5){
     grid[cellY][cellX] = 2;
-    level += 1;
+    levels ++;
     score += 100;
+    hasGeese = !hasGeese;
   }
 }
 
-function gameover(){
-  if (lives === 0) {
-    for (let y=0; y<gridSize; y++){
-      for (let x=0; y<gridSize; x++){
-        if (grid[y][x] !== 1){
-          grid[y][x] === 1;
-        }
-      }
-    }
+function gameRules() {
+  if (levels % 5 === 0){
+    speed -= 3;
   }
 }
