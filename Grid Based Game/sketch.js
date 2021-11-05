@@ -1,17 +1,30 @@
+// Project Title
+// Grid Based Game 
+// Your Name
+// Jack Chen
+// Date
+// 11/5/2021
+// Extra for Experts:
+// 
+
 let grid;
 let gridSize = 30;
 let cellWidth, cellHeight;
 
 let geese;
 let hasGeese = false;
-let levels = 0; 
+
+let levels = 1; 
 let score = 0;
 let lives = 3;
 let speed = 30;
+let isGameOver = false;
+let theGameOver;
 
 
 function preload() {
   geese = loadImage("assets/Canadian Geese.png");
+  theGameOver = loadImage("assets/Game Over.png");
 }
 
 function setup() {
@@ -20,13 +33,14 @@ function setup() {
   cellHeight = height/gridSize;
   grid = createEmpty2DArray(gridSize,gridSize);
   theBackground();
-  gameRules();
+
 }
 
 function draw() {
   background(220);
   displayGrid();
-  geeseMovement();
+  geeseMovement(); // spawns geese and moves it 
+  gameRules(); 
 }
   
 function createEmpty2DArray(rows,cols){
@@ -97,11 +111,44 @@ function theBackground() {
 }
 
 function spawnGeese() {
-  for (let y=22; y<23; y++){
-    for (let x=0; x<gridSize; x++){
-      if(hasGeese === false){
-        if (grid[y][x] === 2 && random(100) < 10){
-          grid[y][x] = 5;
+  let y = 22;
+  for (let x=0; x<gridSize; x++){
+    if(hasGeese === false){
+      if (grid[y][x] === 2 && random(100) < 10){
+        grid[y][x] = 5;
+        hasGeese = !hasGeese;
+      }
+    }
+  }
+}
+
+function geeseMovement() {
+  if (isGameOver === false){
+    spawnGeese();
+    let choice = random(100);
+    for (let y=0; y<gridSize; y++){
+      for (let x=0; x<gridSize; x++){
+        if (grid[y][x] === 5 && frameCount % speed === 0 ){
+          if (choice < 33){ // moves up
+            grid[y][x] = 2;
+            grid[y-1][x] = 5;
+          }
+          else if (choice < 66){
+            if (x !== 29){ // checks if it's the right border
+              grid[y][x] = 2; // moves up and right
+              grid[y-1][x+1] = 5;
+            }
+          }
+          else {
+            if (x !== 0){ // moves up and left
+              grid[y][x] = 2; // moves up and left
+              grid[y-1][x-1] = 5;
+            }
+          }
+        }
+        if (grid[y][x] === 5 && y === 0){ // loses live when geese reach to the top
+          grid[y][x] = 2;
+          lives -= 1;
           hasGeese = !hasGeese;
         }
       }
@@ -109,40 +156,7 @@ function spawnGeese() {
   }
 }
 
-function geeseMovement() {
-  spawnGeese();
-  
-  let choice = random(100);
-  for (let y=0; y<gridSize; y++){
-    for (let x=0; x<gridSize; x++){
-      if (grid[y][x] === 5 && frameCount % speed === 0 ){
-        if (choice < 33){ // moves up
-          grid[y][x] = 2;
-          grid[y-1][x] = 5;
-        }
-        else if (choice < 66){
-          if (x !== gridSize.length - 1){ // moves up and right
-            grid[y][x] = 2;
-            grid[y-1][x+1] = 5;
-          }
-        }
-        else {
-          if (x !== 0){ // moves up and left
-            grid[y][x] = 2;
-            grid[y-1][x-1] = 5;
-          }
-        }
-      }
-      if (grid[y][x] === 5 && y === 0){ // loses live when geese reach to the top
-        grid[y][x] = 2;
-        lives -= 1;
-        hasGeese = !hasGeese;
-      }
-    }
-  }
-}
-
-function mousePressed() {
+function mousePressed() { // allows you to shoot the duck and they respawn
   let cellX = Math.floor(mouseX/cellWidth);
   let cellY = Math.floor(mouseY/cellHeight);
 
@@ -156,6 +170,16 @@ function mousePressed() {
 
 function gameRules() {
   if (levels % 5 === 0){
-    speed -= 3;
+    speed -= 2;
+  }
+  if (lives === 0){
+    isGameOver = true;
   }
 }
+
+function gameOver() {
+  if (isGameOver){
+    
+  }
+}
+
